@@ -20,7 +20,6 @@ export const StatusPriorityFields: React.FC = () => {
 
   return (
     <Stack direction="row" spacing={2}>
-      {/* Status */}
       <Controller
         control={control}
         name="status"
@@ -39,7 +38,6 @@ export const StatusPriorityFields: React.FC = () => {
         )}
       />
 
-      {/* Priority */}
       <Controller
         control={control}
         name="priority"

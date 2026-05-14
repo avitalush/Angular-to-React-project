@@ -69,8 +69,8 @@ export const COLUMN_ORDER: TaskStatus[] = [
 ];
 
 export const COLUMN_LABELS: Record<TaskStatus, string> = {
-  todo: "To Do",
+  "todo": "To Do",
   "in-progress": "In Progress",
-  review: "Review",
-  done: "Done",
+  "review": "Review",
+  "done": "Done",
 };

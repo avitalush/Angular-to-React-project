@@ -1,14 +1,18 @@
 import { z } from "zod";
+import dayjs from "dayjs";
 import type { Task } from "../enum/TaskStatus";
 import { TASK_STATUSES, TASK_PRIORITIES } from "../enum/TaskStatus";
 
-const noWhitespaceString = z.string().refine((val) => val.trim().length > 0, {
-  message: "Cannot be only whitespace",
-});
+const noWhitespaceString = z
+  .string()
+  .min(1, "This field is required")
+  .refine((val) => val.trim().length > 0, {
+    message: "Cannot be only whitespace",
+  });
 
 const validDateString = z.string().refine(
   (val) => {
-    if (!val) return true; // Empty is ok (optional)
+    if (!val) return true;
     const date = new Date(val);
     return !Number.isNaN(date.getTime());
   },
@@ -20,9 +24,7 @@ export const taskFormSchema = z.object({
     .min(3, "Title must be at least 3 characters")
     .max(120, "Title cannot exceed 120 characters"),
 
-  description: z
-    .string()
-    .max(500, "Description cannot exceed 500 characters"),
+  description: z.string().max(500, "Description cannot exceed 500 characters"),
 
   status: z.enum(TASK_STATUSES),
 
@@ -47,15 +49,7 @@ export const taskToFormData = (task: Task): TaskFormData => {
     priority: task.priority,
     assignee: task.assignee,
     projectId: task.projectId,
-    dueDate: task.dueDate ? toInputDate(task.dueDate) : "",
+    dueDate: task.dueDate ? dayjs(task.dueDate).format("YYYY-MM-DD") : "",
     tags: task.tags?.join(", ") || "",
   };
-};
-
-const toInputDate = (date: Date): string => {
-  if (!(date instanceof Date)) date = new Date(date);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
 };

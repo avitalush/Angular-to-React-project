@@ -5,7 +5,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Paper, Typography, Box, Chip } from "@mui/material";
-import type { Task, TaskStatus } from "../../../../enum/TaskStatus";
+import type { Task, TaskStatus } from "../../../enum/TaskStatus";
 import { TaskCard } from "../task-card/TaskCard";
 import styles, { columnColors } from "./Column.style";
 

@@ -12,8 +12,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit, DragIndicator } from "@mui/icons-material";
-import type { Task } from "../../../../enum/TaskStatus";
-import { PROJECTS } from "../../../../enum/TaskStatus";
+import type { Task } from "../../../enum/TaskStatus";
+import { PROJECTS } from "../../../enum/TaskStatus";
 import styles, { priorityColors } from "./TaskCard.style";
 
 type TaskCardProps = {

@@ -5,12 +5,12 @@ import { TaskForm } from "../../components/TaskForm";
 import { useTaskService } from "../../contexts/TaskContext";
 import type { Task } from "../../enum/TaskStatus";
 import styles from "./Board.style";
-import { BoardColumns } from "./components/board-columns/BoardColumns";
-import { BoardHeader } from "./components/board-header/BoardHeader";
-import { TaskCard } from "./components/task-card/TaskCard";
-import { COLUMN_ORDER } from "./constants/boardConstants";
-import { useBoardDragDrop } from "./hooks/useBoardDragDrop";
-import { useTaskFilter } from "./hooks/useTaskFilter";
+import { BoardColumns } from "../../components/board/board-columns/BoardColumns";
+import { BoardHeader } from "../../components/board/board-header/BoardHeader";
+import { TaskCard } from "../../components/board/task-card/TaskCard";
+import { COLUMN_ORDER } from "../../constants/boardConstants";
+import { useBoardDragDrop } from "../../hooks/useBoardDragDrop";
+import { useTaskFilter } from "../../hooks/useTaskFilter";
 
 export const Board: FC = () => {
   const { tasks, deleteTask, updateTaskStatus, reorderTasks } =
