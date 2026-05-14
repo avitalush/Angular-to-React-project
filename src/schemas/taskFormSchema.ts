@@ -2,8 +2,6 @@ import { z } from "zod";
 import type { Task } from "../enum/TaskStatus";
 import { TASK_STATUSES, TASK_PRIORITIES } from "../enum/TaskStatus";
 
-// Custom Zod refinements matching Angular validators
-
 const noWhitespaceString = z.string().refine((val) => val.trim().length > 0, {
   message: "Cannot be only whitespace",
 });
@@ -17,7 +15,6 @@ const validDateString = z.string().refine(
   { message: "Please enter a valid date" },
 );
 
-// Main Task Form Schema
 export const taskFormSchema = z.object({
   title: noWhitespaceString
     .min(3, "Title must be at least 3 characters")
@@ -37,13 +34,11 @@ export const taskFormSchema = z.object({
 
   dueDate: validDateString,
 
-  tags: z.string(), // Comma-separated string
+  tags: z.string(),
 });
 
-// Infer TypeScript type from schema
 export type TaskFormData = z.infer<typeof taskFormSchema>;
 
-// Helper to convert Task to form data
 export const taskToFormData = (task: Task): TaskFormData => {
   return {
     title: task.title,
@@ -57,7 +52,6 @@ export const taskToFormData = (task: Task): TaskFormData => {
   };
 };
 
-// Helper to format Date for input[type="date"]
 const toInputDate = (date: Date): string => {
   if (!(date instanceof Date)) date = new Date(date);
   const year = date.getFullYear();

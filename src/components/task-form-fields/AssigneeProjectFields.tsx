@@ -16,7 +16,6 @@ export const AssigneeProjectFields: React.FC = () => {
 
   return (
     <Stack direction="row" spacing={2}>
-      {/* Assignee */}
       <Controller
         control={control}
         name="assignee"
@@ -35,7 +34,6 @@ export const AssigneeProjectFields: React.FC = () => {
         )}
       />
 
-      {/* Project */}
       <Controller
         control={control}
         name="projectId"

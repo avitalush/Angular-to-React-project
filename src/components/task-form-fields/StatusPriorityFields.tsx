@@ -9,10 +9,11 @@ import {
   Stack,
 } from "@mui/material";
 import type { TaskFormData } from "../../schemas/taskFormSchema";
-import type { TaskPriority } from "../../enum/TaskStatus";
-import { COLUMN_ORDER, COLUMN_LABELS } from "../../enum/TaskStatus";
-
-const priorities: TaskPriority[] = ["low", "medium", "high", "critical"];
+import {
+  COLUMN_ORDER,
+  COLUMN_LABELS,
+  TASK_PRIORITIES,
+} from "../../enum/TaskStatus";
 
 export const StatusPriorityFields: React.FC = () => {
   const { control } = useFormContext<TaskFormData>();
@@ -46,7 +47,7 @@ export const StatusPriorityFields: React.FC = () => {
           <FormControl fullWidth error={Boolean(error)}>
             <InputLabel>Priority</InputLabel>
             <Select {...field} label="Priority">
-              {priorities.map((priority) => (
+              {TASK_PRIORITIES.map((priority) => (
                 <MenuItem key={priority} value={priority}>
                   {priority.charAt(0).toUpperCase() + priority.slice(1)}
                 </MenuItem>

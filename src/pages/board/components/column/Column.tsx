@@ -5,8 +5,9 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { Paper, Typography, Box, Chip } from "@mui/material";
-import type { Task, TaskStatus } from "../../enum/TaskStatus";
-import { TaskCard } from "./TaskCard";
+import type { Task, TaskStatus } from "../../../../enum/TaskStatus";
+import { TaskCard } from "../task-card/TaskCard";
+import styles, { columnColors } from "./Column.style";
 
 type ColumnProps = {
   status: TaskStatus;
@@ -14,13 +15,6 @@ type ColumnProps = {
   tasks: Task[];
   onEditTask: (task: Task) => void;
   onDeleteTask: (task: Task) => void;
-};
-
-const columnColors: Record<TaskStatus, string> = {
-  todo: "#e3f2fd",
-  "in-progress": "#fff3e0",
-  review: "#f3e5f5",
-  done: "#e8f5e9",
 };
 
 export const Column: React.FC<ColumnProps> = ({
@@ -37,30 +31,19 @@ export const Column: React.FC<ColumnProps> = ({
   return (
     <Paper
       sx={{
-        p: 2,
+        ...styles.paper,
         backgroundColor: columnColors[status],
-        minHeight: 500,
-        display: "flex",
-        flexDirection: "column",
         border: isOver ? "2px dashed #1976d2" : "2px solid transparent",
-        transition: "border 0.2s",
       }}
     >
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          mb: 2,
-        }}
-      >
-        <Typography variant="h6" sx={{ fontWeight: 600 }}>
+      <Box sx={styles.header}>
+        <Typography variant="h6" sx={styles.title}>
           {title}
         </Typography>
         <Chip label={tasks.length} size="small" color="primary" />
       </Box>
 
-      <Box ref={setNodeRef} sx={{ flex: 1 }}>
+      <Box ref={setNodeRef} sx={styles.tasksContainer}>
         <SortableContext
           items={tasks.map((t) => t.id)}
           strategy={verticalListSortingStrategy}
@@ -76,13 +59,7 @@ export const Column: React.FC<ColumnProps> = ({
         </SortableContext>
 
         {tasks.length === 0 && (
-          <Box
-            sx={{
-              textAlign: "center",
-              py: 4,
-              color: "text.secondary",
-            }}
-          >
+          <Box sx={styles.emptyState}>
             <Typography variant="body2">No tasks</Typography>
           </Box>
         )}

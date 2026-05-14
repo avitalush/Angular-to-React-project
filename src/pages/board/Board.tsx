@@ -1,18 +1,18 @@
-import React, { useState, useCallback } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { Box, Container } from "@mui/material";
-import type { Task } from "../../enum/TaskStatus";
-import { useTaskService } from "../../contexts";
-import { BoardHeader } from "./components/BoardHeader";
-import { BoardColumns } from "./components/BoardColumns";
-import { TaskCard } from "./components/TaskCard";
+import { useCallback, useState, type FC } from "react";
 import { TaskForm } from "../../components/TaskForm";
-import { useTaskFilter } from "./hooks/useTaskFilter";
-import { useBoardDragDrop } from "./hooks/useBoardDragDrop";
-import { COLUMN_ORDER } from "./constants/boardConstants";
+import { useTaskService } from "../../contexts/TaskContext";
+import type { Task } from "../../enum/TaskStatus";
 import styles from "./Board.style";
+import { BoardColumns } from "./components/board-columns/BoardColumns";
+import { BoardHeader } from "./components/board-header/BoardHeader";
+import { TaskCard } from "./components/task-card/TaskCard";
+import { COLUMN_ORDER } from "./constants/boardConstants";
+import { useBoardDragDrop } from "./hooks/useBoardDragDrop";
+import { useTaskFilter } from "./hooks/useTaskFilter";
 
-export const Board: React.FC = () => {
+export const Board: FC = () => {
   const { tasks, deleteTask, updateTaskStatus, reorderTasks } =
     useTaskService();
 
@@ -21,7 +21,6 @@ export const Board: React.FC = () => {
   const [isTaskFormOpen, setIsTaskFormOpen] = useState(false);
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 
-  // Custom hooks
   const { tasksByStatus, totalTaskCount } = useTaskFilter({
     tasks,
     searchQuery,
@@ -40,7 +39,6 @@ export const Board: React.FC = () => {
     reorderTasks,
   });
 
-  // Event handlers
   const handleDeleteTask = useCallback(
     (task: Task) => {
       deleteTask(task.id);

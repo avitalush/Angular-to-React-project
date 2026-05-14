@@ -1,8 +1,8 @@
 import React from "react";
 import { Box } from "@mui/material";
-import type { Task, TaskStatus } from "../../../enum/TaskStatus";
-import { Column } from "./Column";
-import { COLUMN_ORDER, COLUMN_LABELS } from "../constants/boardConstants";
+import type { Task, TaskStatus } from "../../../../enum/TaskStatus";
+import { Column } from "../column/Column";
+import { COLUMN_ORDER, COLUMN_LABELS } from "../../constants/boardConstants";
 import styles from "./BoardColumns.style";
 
 type BoardColumnsProps = {

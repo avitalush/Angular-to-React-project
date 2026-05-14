@@ -9,7 +9,7 @@ import {
   Box,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { PRIORITY_OPTIONS } from "../constants/boardConstants";
+import { PRIORITY_OPTIONS } from "../../constants/boardConstants";
 import styles from "./BoardFilters.style";
 
 type BoardFiltersProps = {

@@ -41,6 +41,10 @@ const contentBox: SxProps = {
   flex: 1,
   minWidth: 0,
   overflow: "hidden",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "space-between",
+  minHeight: "150px",
 };
 
 const title: SxProps = {

@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, Typography, Paper, Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
-import { BoardFilters } from "./BoardFilters";
+import { BoardFilters } from "../board-filters/BoardFilters";
 import styles from "./BoardHeader.style";
 
 type BoardHeaderProps = {

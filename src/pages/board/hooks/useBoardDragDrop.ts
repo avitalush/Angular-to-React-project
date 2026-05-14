@@ -48,7 +48,6 @@ export const useBoardDragDrop = ({
       const activeId = active.id as string;
       const overId = over.id as string;
 
-      // Check if dragging over a column
       if (COLUMN_ORDER.includes(overId as TaskStatus)) {
         const newStatus = overId as TaskStatus;
         const task = tasks.find((t) => t.id === activeId);
@@ -70,26 +69,22 @@ export const useBoardDragDrop = ({
       const activeId = active.id as string;
       const overId = over.id as string;
 
-      // If dropped on a column (empty area)
       if (COLUMN_ORDER.includes(overId as TaskStatus)) {
         const newStatus = overId as TaskStatus;
         updateTaskStatus(activeId, newStatus);
         return;
       }
 
-      // Get the active and over tasks
       const activeTaskItem = tasks.find((t) => t.id === activeId);
       const overTask = tasks.find((t) => t.id === overId);
 
       if (!activeTaskItem || !overTask) return;
 
-      // If moving to a different column
       if (activeTaskItem.status !== overTask.status) {
         updateTaskStatus(activeId, overTask.status);
         return;
       }
 
-      // Reordering within the same column
       if (activeId !== overId) {
         const oldIndex = tasks.findIndex((t) => t.id === activeId);
         const newIndex = tasks.findIndex((t) => t.id === overId);

@@ -21,3 +21,10 @@ export const PRIORITY_OPTIONS = [
   { value: "medium", label: "Medium" },
   { value: "low", label: "Low" },
 ] as const;
+
+export const COLUMN_COLORS: Record<TaskStatus, string> = {
+  "todo": "#e3f2fd",
+  "in-progress": "#fff3e0",
+  "review": "#f3e5f5",
+  "done": "#e8f5e9",
+};

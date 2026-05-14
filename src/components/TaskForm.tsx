@@ -12,22 +12,21 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import type { Task } from "../enum/TaskStatus";
-import { ASSIGNEES, PROJECTS } from "../enum/TaskStatus";
 import { useTaskService } from "../contexts/TaskContext";
+import { DEFAULT_TASK_FORM_VALUES } from "../constants/taskFormConstants";
 import {
   taskFormSchema,
   type TaskFormData,
   taskToFormData,
 } from "../schemas/taskFormSchema";
-import {
-  TitleField,
-  DescriptionField,
-  StatusPriorityFields,
-  AssigneeProjectFields,
-  DueDateField,
-  TagsField,
-} from "./task-form-fields";
+
 import styles from "./TaskForm.style";
+import { TitleField } from "./task-form-fields/TitleField";
+import { DescriptionField } from "./task-form-fields/DescriptionField";
+import { StatusPriorityFields } from "./task-form-fields/StatusPriorityFields";
+import { AssigneeProjectFields } from "./task-form-fields/AssigneeProjectFields";
+import { DueDateField } from "./task-form-fields/DueDateField";
+import { TagsField } from "./task-form-fields/TagsField";
 
 interface TaskFormProps {
   task?: Task | null;
@@ -43,35 +42,20 @@ export const TaskForm: React.FC<TaskFormProps> = ({
   const { addTask, updateTask } = useTaskService();
   const isEdit = !!task;
 
-  // Initialize form with react-hook-form + zod validation
   const methods = useForm<TaskFormData>({
     resolver: zodResolver(taskFormSchema),
-    defaultValues: task
-      ? taskToFormData(task)
-      : {
-          title: "",
-          description: "",
-          status: "todo",
-          priority: "medium",
-          assignee: ASSIGNEES[0],
-          projectId: PROJECTS[0].id,
-          dueDate: "",
-          tags: "",
-        },
+    defaultValues: task ? taskToFormData(task) : DEFAULT_TASK_FORM_VALUES,
   });
 
   const { handleSubmit, reset } = methods;
 
-  // Reset form when task changes (for edit mode)
   useEffect(() => {
     if (task) {
       reset(taskToFormData(task));
     }
   }, [task, reset]);
 
-  // Handle form submission
   const onSubmit = (data: TaskFormData) => {
-    // Parse tags from comma-separated string
     const tags = data.tags
       ? data.tags
           .split(",")
@@ -79,7 +63,6 @@ export const TaskForm: React.FC<TaskFormProps> = ({
           .filter((t) => t.length > 0)
       : [];
 
-    // Parse due date
     const dueDate = data.dueDate ? new Date(data.dueDate) : null;
 
     const taskData = {
@@ -94,10 +77,8 @@ export const TaskForm: React.FC<TaskFormProps> = ({
     };
 
     if (isEdit && task) {
-      // Update existing task
       updateTask(task.id, taskData);
     } else {
-      // Create new task
       addTask(taskData);
     }
 

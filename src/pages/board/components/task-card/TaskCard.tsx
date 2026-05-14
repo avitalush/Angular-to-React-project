@@ -12,8 +12,8 @@ import {
   Tooltip,
 } from "@mui/material";
 import { Delete, Edit, DragIndicator } from "@mui/icons-material";
-import type { Task } from "../../../enum/TaskStatus";
-import { PROJECTS } from "../../../enum/TaskStatus";
+import type { Task } from "../../../../enum/TaskStatus";
+import { PROJECTS } from "../../../../enum/TaskStatus";
 import styles, { priorityColors } from "./TaskCard.style";
 
 type TaskCardProps = {
@@ -43,16 +43,13 @@ export const TaskCard: React.FC<TaskCardProps> = ({
     opacity: isDragging ? 0.5 : 1,
   };
 
-  // Find project by ID
   const project = PROJECTS.find((p) => p.id === task.projectId);
 
-  // Check if task is overdue
   const isOverdue =
     task.dueDate &&
     new Date(task.dueDate) < new Date() &&
     task.status !== "done";
 
-  // Check if task is completed
   const isCompleted = task.status === "done";
 
   const handleDeleteClick = (e: React.MouseEvent) => {
@@ -94,33 +91,7 @@ export const TaskCard: React.FC<TaskCardProps> = ({
           </Box>
 
           <Box sx={styles.contentBox}>
-            <Tooltip title={task.title} arrow placement="top">
-              <Typography
-                variant="subtitle2"
-                onClick={handleTitleClick}
-                sx={{
-                  ...styles.title,
-                  textDecoration: isCompleted ? "line-through" : "none",
-                  color: isCompleted ? "text.disabled" : "text.primary",
-                }}
-              >
-                {task.title}
-              </Typography>
-            </Tooltip>
-
-            {task.description && (
-              <Tooltip title={task.description} arrow placement="top">
-                <Typography
-                  variant="body2"
-                  color={isCompleted ? "text.disabled" : "text.secondary"}
-                  sx={styles.description}
-                >
-                  {task.description}
-                </Typography>
-              </Tooltip>
-            )}
-
-            <Box sx={styles.metadataStack}>
+            <Box sx={{ display: "flex", gap: 0.5, mb: 2.5 }}>
               <Chip
                 label={task.priority}
                 size="small"
@@ -141,6 +112,26 @@ export const TaskCard: React.FC<TaskCardProps> = ({
                   }}
                 />
               )}
+            </Box>
+
+            <Tooltip title={task.title} arrow placement="top">
+              <Typography
+                variant="subtitle2"
+                onClick={handleTitleClick}
+                sx={{
+                  ...styles.title,
+                  textDecoration: isCompleted ? "line-through" : "none",
+                  color: isCompleted ? "text.disabled" : "text.primary",
+                  mb: 2.5,
+                }}
+              >
+                {task.title}
+              </Typography>
+            </Tooltip>
+
+            <Box
+              sx={{ display: "flex", gap: 1, alignItems: "center", mb: 2.5 }}
+            >
               <Chip
                 label={task.assignee}
                 size="small"
